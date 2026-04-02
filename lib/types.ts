@@ -2,34 +2,34 @@ export type Course = {
   id: string;
   title: string;
   instructor: string;
+  notes: string;
   color: string;
-  notes?: string;
-  createdAt?: string | null;
+  createdAt?: unknown;
 };
 
 export type Task = {
   id: string;
   title: string;
   courseId?: string;
-  deadline?: string;
-  status: 'todo' | 'in_progress' | 'done';
-  priority: 'low' | 'medium' | 'high';
   details?: string;
-  createdAt?: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'todo' | 'in_progress' | 'done';
+  deadline?: string;
+  createdAt?: unknown;
 };
 
 export type StudySession = {
   id: string;
   title: string;
-  duration: number;
+  duration: string;
   date: string;
   summary?: string;
-  createdAt?: string;
+  createdAt?: unknown;
 };
 
-export type AiPlan = {
+export type AIPlan = {
   id: string;
   prompt: string;
   result: string;
-  createdAt?: string;
+  createdAt?: unknown;
 };

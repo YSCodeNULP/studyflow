@@ -26,7 +26,7 @@ export function AddCourseForm({ userId }: { userId: string }) {
       notes: notes.trim(),
       color,
       createdAt: serverTimestamp()
-    } satisfies Omit<Course, 'id'> & { createdAt: unknown });
+    });
 
     setTitle('');
     setInstructor('');
