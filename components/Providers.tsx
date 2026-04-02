@@ -50,6 +50,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       if (nextUser && db) {
         const userRef = doc(db, 'users', nextUser.uid);
         const existing = await getDoc(userRef);
+
         if (!existing.exists()) {
           await setDoc(userRef, {
             displayName: nextUser.displayName || 'Студент',
@@ -64,19 +65,22 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     return () => unsub();
   }, []);
 
-  const value = useMemo<AuthContextValue>(() => ({
-    user,
-    loading,
-    configured: isFirebaseConfigured,
-    login: async () => {
-      if (!auth || !googleProvider) return;
-      await signInWithPopup(auth, googleProvider);
-    },
-    logout: async () => {
-      if (!auth) return;
-      await signOut(auth);
-    }
-  }), [user, loading]);
+  const value = useMemo<AuthContextValue>(
+    () => ({
+      user,
+      loading,
+      configured: isFirebaseConfigured,
+      login: async () => {
+        if (!auth || !googleProvider) return;
+        await signInWithPopup(auth, googleProvider);
+      },
+      logout: async () => {
+        if (!auth) return;
+        await signOut(auth);
+      }
+    }),
+    [user, loading]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
@@ -98,7 +102,11 @@ export function useCollectionData<T extends DocumentData>(path: string, enabled 
 
     const q = query(collection(db, path), orderBy('createdAt', 'desc'));
     const unsub = onSnapshot(q, (snapshot) => {
-      const nextItems = snapshot.docs.map((item) => ({ id: item.id, ...item.data() })) as T[];
+      const nextItems = snapshot.docs.map((item) => ({
+        id: item.id,
+        ...item.data()
+      })) as unknown as T[];
+
       setItems(nextItems);
       setLoading(false);
     });
@@ -113,7 +121,7 @@ export function useUserCollections(userId?: string) {
   const courses = useCollectionData<Course>(`users/${userId}/courses`, Boolean(userId));
   const tasks = useCollectionData<Task>(`users/${userId}/tasks`, Boolean(userId));
   const sessions = useCollectionData<StudySession>(`users/${userId}/sessions`, Boolean(userId));
-  const aiPlans = useCollectionData<AiPlan>(`users/${userId}/aiPlans`, Boolean(userId));
+  const aiPlans = useCollectionData<AIPlan>(`users/${userId}/aiPlans`, Boolean(userId));
 
   return { courses, tasks, sessions, aiPlans };
 }
