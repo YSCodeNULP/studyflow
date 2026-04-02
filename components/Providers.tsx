@@ -15,7 +15,7 @@ import {
   setDoc,
   type DocumentData
 } from 'firebase/firestore';
-import type { AiPlan, Course, StudySession, Task } from '@/lib/types';
+import type { AIPlan, Course, StudySession, Task } from '@/lib/types';
 
 type AuthContextValue = {
   user: User | null;
