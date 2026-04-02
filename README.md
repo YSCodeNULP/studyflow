@@ -18,7 +18,7 @@ StudyFlow — веб-застосунок для студентів, який д
 - Firebase Authentication
 - Cloud Firestore
 - Gemini API
-- Vercel
+- Netlify
 
 ## Локальний запуск
 
@@ -65,13 +65,13 @@ http://localhost:3000
 
 ## Деплой
 
-Проєкт підготовлений для розгортання на Vercel.
+Проєкт підготовлений для розгортання на Netlify.
 
 Основні кроки:
 - завантажити код у GitHub
-- імпортувати репозиторій у Vercel
+- імпортувати репозиторій у Netlify
 - додати environment variables
-- після деплою додати домен Vercel у Firebase Authentication -> Authorized domains
+- після деплою додати домен Netlify у Firebase Authentication -> Authorized domains
 
 ## Сторінки
 
